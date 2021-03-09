@@ -1,14 +1,6 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>{{name}}</title>
-</head>
-<!-- 以下を追加 -->
-<a href="/logout">ログアウトする</a>
-<!-- 追加終わり -->
-
-<body>
+{% extends "layout.html" %}
+{% block content %}
+    <a href="/logout">ログアウトする</a>
     {% if name == "kiyokiyo" %}
     <h1>スペシャル{{name}}神社</h1>
     {% elif name %}
@@ -37,6 +29,4 @@
         {{onegai.title}}：{{onegai.body}}（{{onegai.date}}）
     </div>
     {% endfor %}
-</body>
-
-</html>
+{% endblock %}
