@@ -20,8 +20,8 @@
         <input type="submit" value="送信">
     </form>
 
-    {% for word in words %}
-    <p>{{word}}</p>
+    {% for onegai in all_onegai %}
+    <p>{{onegai.title}}：{{onegai.body}}（{{onegai.date}}）</p>
     {% endfor %}
 </body>
 </html>
