@@ -4,10 +4,24 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{name}}</title>
+    <title>ログイン画面</title>
 </head>
 <body>
-    <h1>はろー</h1>
-    <h2>{{name}}</h2>
+    {% if name == "kiyokiyo" %}
+    <h1>スペシャル{{name}}神社</h1>
+    {% elif name %}
+    <h1>{{name}}神社</h1>
+    {% else %}
+    <h1>ただの神社</h1>
+    {% endif %}
+
+    <form action="/index" method="POST">
+        <input type="text" name="name" placeholder="神社の名前を入力してください">
+        <input type="submit" value="送信">
+    </form>
+
+    {% for word in words %}
+    <p>{{word}}</p>
+    {% endfor %}
 </body>
 </html>

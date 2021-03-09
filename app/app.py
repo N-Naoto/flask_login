@@ -6,7 +6,14 @@ app = Flask(__name__)
 @app.route('/index')
 def index():
     name = request.args.get('name')
-    return render_template('index.html',name=name)
+    words = ['月','火','水','木','金','土','日']
+    return render_template('index.html',name=name,words=words)
+
+@app.route('/index',methods=['post'])
+def post():
+    name = request.form['name']
+    words = ['月','火','水','木','金','土','日']
+    return render_template('index.html',name=name,words=words)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
