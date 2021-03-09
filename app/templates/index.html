@@ -26,10 +26,16 @@
         <input type="submit" value="追加">
     </form>
 
+    <form action="/update" method="POST">
+        <input type="text" name="title" placeholder="title">
+        <input type="text" name="body" placeholder="body">
+        <input type="submit" value="更新">
+        {% for onegai in all_onegai %}
+        <div>
+            <input type="radio" name="update" value={{onegai.id}}>{{onegai.title}}：{{onegai.body}}（{{onegai.date}}）
+        </div>
+        {% endfor %}
+    </form>
 
-
-    {% for onegai in all_onegai %}
-    <p>{{onegai.title}}：{{onegai.body}}（{{onegai.date}}）</p>
-    {% endfor %}
 </body>
 </html>
