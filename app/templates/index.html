@@ -26,16 +26,21 @@
         <input type="submit" value="追加">
     </form>
 
-    <form action="/update" method="POST">
+    <form action="/update" method="POST" id='update'>
         <input type="text" name="title" placeholder="title">
         <input type="text" name="body" placeholder="body">
         <input type="submit" value="更新">
-        {% for onegai in all_onegai %}
-        <div>
-            <input type="radio" name="update" value={{onegai.id}}>{{onegai.title}}：{{onegai.body}}（{{onegai.date}}）
-        </div>
-        {% endfor %}
     </form>
+
+    <form action="/delete" method="POST" id='delete'>
+        <input type="submit" value="選んだものを削除">
+    </form>
+    {% for onegai in all_onegai %}
+    <div>
+        <input type="radio" name="update" form="update" value={{onegai.id}}>
+        <input type="checkbox" name="delete" form="delete" value={{onegai.id}}>{{onegai.title}}：{{onegai.body}}（{{onegai.date}}）
+    </div>
+    {% endfor %}
 
 </body>
 </html>
