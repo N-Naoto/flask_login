@@ -15,7 +15,8 @@ def index():
     if "user_name" in session:
         name = session["user_name"]
         all_onegai = OnegaiContent.query.all()
-        return render_template("index.html", name=name, all_onegai=all_onegai)
+        title_name = 'index'
+        return render_template("index.html", name=name, all_onegai=all_onegai, title_name=title_name)
     else:
         return redirect(url_for("top", status="logout"))
 
@@ -52,7 +53,8 @@ def delete():
 @app.route("/top")
 def top():
     status = request.args.get("status")
-    return render_template("top.html", status=status)
+    title_name = 'top'
+    return render_template("top.html", status=status,title_name=title_name)
 
 
 @app.route("/login", methods=["post"])
@@ -75,7 +77,8 @@ def login():
 @app.route("/newcomer")
 def newcomer():
     status = request.args.get("status")
-    return render_template("newcomer.html", status=status)
+    title_name = 'newcomer'
+    return render_template("newcomer.html", status=status, title_name=title_name)
 
 
 @app.route("/registar", methods=["post"])
