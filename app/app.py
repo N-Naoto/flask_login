@@ -42,6 +42,39 @@ def create():
     return render_template('create.html')
 
 
+@app.route('/detail/<int:id>')
+def read(id):
+    post = Post.query.get(id)
+    return render_template('detail.html', post=post)
+
+
+@app.route('/update/<int:id>', methods=['GET', 'POST'])
+def update(id):
+    post = Post.query.get(id)
+    if request.method == 'GET':
+        # updateのページ
+        return render_template('update.html', post=post)
+    else:
+        post.title = request.form.get('title')
+        post.detail = request.form.get('detail')
+        post.due = datetime.strptime(request.form.get('due'), '%Y-%m-%d')
+
+        db_session.commit()
+        return redirect('/')
+
+    return render_template('detail.html', post=post)
+
+
+@app.route('/delete/<int:id>')
+def delete(id):
+    post = Post.query.get(id)
+
+    db_session.delete(post)
+    db_session.commit()
+    return redirect('/index')
+
+
+
 # 初期画面
 @app.route("/top")
 def top():
