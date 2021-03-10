@@ -2,5 +2,3 @@ venv
 /venv
 app/key.py
 /app/key.py
-models/onegai.db
-/models/onegai.db
