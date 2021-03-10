@@ -5,12 +5,9 @@ from datetime import datetime
 from app import key
 from hashlib import sha256
 from datetime import datetime,date
-# from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.secret_key = key.SECRET_KEY
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///todo.db'
-# db = SQLAlchemy(app)
 
 
 @app.route("/")
@@ -52,7 +49,6 @@ def read(id):
 def update(id):
     post = Post.query.get(id)
     if request.method == 'GET':
-        # updateのページ
         return render_template('update.html', post=post)
     else:
         post.title = request.form.get('title')
