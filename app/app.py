@@ -1,56 +1,45 @@
 from flask import Flask, render_template, request, session, redirect, url_for
-from models.models import OnegaiContent, User
+from models.models import Post, User
 from models.database import db_session
 from datetime import datetime
 from app import key
 from hashlib import sha256
+from datetime import datetime,date
+# from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.secret_key = key.SECRET_KEY
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///todo.db'
+# db = SQLAlchemy(app)
 
 
 @app.route("/")
-@app.route("/index")
+@app.route("/index",methods=['GET','POST'])
 def index():
-    # sessionの中にユーザー名があればindex.htmlを返す
-    if "user_name" in session:
-        name = session["user_name"]
-        all_onegai = OnegaiContent.query.all()
-        all_user = User.query.all()
-        title_name = 'index'
-        return render_template("index.html", name=name, all_onegai=all_onegai, all_user=all_user,title_name=title_name)
-    # ないならtop.htmlを返す
+    if request.method == 'GET':
+        if "user_name" in session:
+            name = session["user_name"]
+            posts = Post.query.order_by(Post.due).all()
+            all_user = User.query.all()
+            title_name = 'index'
+            return render_template("index.html", name=name, posts=posts, all_user=all_user, today=date.today(), title_name=title_name)
+        else:
+            return redirect(url_for("top", status="logout"))
     else:
-        return redirect(url_for("top", status="logout"))
+        title = request.form.get('title')
+        detail = request.form.get('detail')
+        due = request.form.get('due')
+        due = datetime.strptime(due, '%Y-%m-%d')
+        new_post = Post(title=title, detail=detail, due=due)
+        db_session.add(new_post)
+        db_session.commit()
+
+        return redirect('/index')
 
 
-@app.route("/add", methods=["post"])
-def add():
-    title = request.form["title"]
-    body = request.form["body"]
-    content = OnegaiContent(title, body, datetime.now())
-    db_session.add(content)
-    db_session.commit()
-    return redirect(url_for("index"))
-
-
-@app.route("/update", methods=["post"])
-def update():
-    content = OnegaiContent.query.filter_by(id=request.form["update"]).first()
-    content.title = request.form["title"]
-    content.body = request.form["body"]
-    db_session.commit()
-    return redirect(url_for("index"))
-
-
-@app.route("/delete", methods=["post"])
-def delete():
-    id_list = request.form.getlist("delete")
-    for id in id_list:
-        content = OnegaiContent.query.filter_by(id=id).first()
-        db_session.delete(content)
-    db_session.commit()
-    return redirect(url_for("index"))
+@app.route('/create')
+def create():
+    return render_template('create.html')
 
 
 # 初期画面
