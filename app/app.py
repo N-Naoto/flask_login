@@ -16,8 +16,9 @@ def index():
     if "user_name" in session:
         name = session["user_name"]
         all_onegai = OnegaiContent.query.all()
+        all_user = User.query.all()
         title_name = 'index'
-        return render_template("index.html", name=name, all_onegai=all_onegai, title_name=title_name)
+        return render_template("index.html", name=name, all_onegai=all_onegai, all_user=all_user,title_name=title_name)
     # ないならtop.htmlを返す
     else:
         return redirect(url_for("top", status="logout"))

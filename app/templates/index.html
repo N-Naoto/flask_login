@@ -29,4 +29,10 @@
         {{onegai.title}}：{{onegai.body}}（{{onegai.date}}）
     </div>
     {% endfor %}
+    <p>下は登録されてるユーザー名</p>
+    {% for user in all_user %}
+    <div>
+        ユーザー名{{user.user_name}}
+    </div>
+    {% endfor %}
 {% endblock %}
