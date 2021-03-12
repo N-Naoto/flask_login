@@ -1,5 +1,5 @@
 # テーブルの絡む情報を定義するためのクラスを作成
-from sqlalchemy import Column, Integer, String, Text, DateTime
+from sqlalchemy import Column, Integer, String, Text, DateTime,ForeignKey
 from models.database import Base
 from datetime import datetime
 
@@ -10,6 +10,7 @@ class Post(Base):
     title = Column(String(30),nullable=False)
     detail = Column(String(100))
     due = Column(DateTime, nullable=False)
+    # user_id = Column(Integer, ForeignKey('users.id'),nullable=False)
 
     # def __init__(self, title=None, body=None, date=None):
     #     self.title = title

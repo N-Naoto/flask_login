@@ -16,8 +16,8 @@ def index():
     if request.method == 'GET':
         if "user_name" in session:
             name = session["user_name"]
-            posts = Post.query.order_by(Post.due).all()
-            all_user = User.query.all()
+            posts = Post.query.order_by(Post.due,Post.title).all()
+            all_user = User.query.order_by(User.user_name).all()
             title_name = 'index'
             return render_template("index.html", name=name, posts=posts, all_user=all_user, today=date.today(), title_name=title_name)
         else:
