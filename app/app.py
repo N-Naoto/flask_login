@@ -19,7 +19,8 @@ def index():
             posts = Post.query.order_by(Post.due,Post.title).all()
             all_user = User.query.order_by(User.user_name).all()
             title_name = 'index'
-            return render_template("index.html", name=name, posts=posts, all_user=all_user, today=date.today(), title_name=title_name)
+
+            return render_template("index.html", name=name, posts=posts, all_user=all_user, today=date.today(),title_name=title_name)
         else:
             return redirect(url_for("top", status="logout"))
     else:
@@ -27,7 +28,9 @@ def index():
         detail = request.form.get('detail')
         due = request.form.get('due')
         due = datetime.strptime(due, '%Y-%m-%d')
-        new_post = Post(title=title, detail=detail, due=due)
+        user_name = session['user_name']
+        
+        new_post = Post(title=title, detail=detail, due=due, user_name=user_name)
         db_session.add(new_post)
         db_session.commit()
 

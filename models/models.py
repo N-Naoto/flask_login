@@ -10,15 +10,14 @@ class Post(Base):
     title = Column(String(30),nullable=False)
     detail = Column(String(100))
     due = Column(DateTime, nullable=False)
-    # user_id = Column(Integer, ForeignKey('users.id'),nullable=False)
+    user_name = Column(String(30) ,nullable=False)
 
-    # def __init__(self, title=None, body=None, date=None):
-    #     self.title = title
-    #     self.body = body
-    #     self.due = due
 
-    # def __repr__(self):
-    #     return '<Title %r>' % (self.title)
+    def __init__(self, title=None, detail=None, due=None, user_name=None):
+        self.title = title
+        self.detail = detail
+        self.due = due
+        self.user_name = user_name
 
     
 class User(Base):
@@ -31,5 +30,3 @@ class User(Base):
         self.user_name = user_name
         self.hashed_password = hashed_password
 
-    def __repr__(self):
-        return '<Name %r>' % (self.user_name)
