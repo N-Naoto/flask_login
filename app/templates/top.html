@@ -1,13 +1,11 @@
-{% extends "layout.html" %}
-{% block content %}
+{% extends "base.html" %}
+{% block body %}
     <h1>ログイン</h1>
 
     {% if status == "user_notfound" %}
     <p>ユーザが見つかりません。新規登録しましょう。</p>
     {% elif status == "wrong_password" %}
     <p>パスワードが間違っています。</p>
-    {% elif status == "logout" %}
-    <p>ログアウトが完了しました。</p>
     {% endif %}
     
     <form action="/login" method="post">
