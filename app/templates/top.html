@@ -1,17 +1,25 @@
 {% extends "base.html" %}
 {% block body %}
-    <h1>ログイン</h1>
-
+    <div class="background"></div>
+    <div class="card center" style="width: 500px;">
+        <div class="card-body">
+            <h1 class="card-title">ログイン</h1>
+            <form action="/login" method="post">
+                <label for="exampleInputEmail1" class="form-label">ユーザ名</label>
+                <input type="text" class='form-control' name="user_name" placeholder="user_name">
+                <label for="exampleInputPassword1" class="form-label">パスワード</label>
+                <input type="password" class='form-control' name="password" placeholder="password">
+                <input type="submit" class='btn btn-primary' value="ログイン">
+            </form>
+            <a href="/newcomer" style="margin: 0 auto;">新規登録はこちら</a>
+        </div>
+    </div>
     {% if status == "user_notfound" %}
     <p>ユーザが見つかりません。新規登録しましょう。</p>
     {% elif status == "wrong_password" %}
     <p>パスワードが間違っています。</p>
     {% endif %}
+
     
-    <form action="/login" method="post">
-        <input type="text" name="user_name" placeholder="user name">
-        <input type="password" name="password" placeholder="password">
-        <input type="submit" value="Login">
-    </form>
-    <a href="/newcomer">新規登録はこちら</a>
+    
 {% endblock %}

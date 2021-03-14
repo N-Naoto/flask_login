@@ -1,9 +1,13 @@
 {% extends "base.html" %}
+{% block head%}
+<link rel="stylesheet" href="../static/css/index.css">
+{% endblock %}
 {% block body %}
-    <a href="/logout">ログアウトする</a>
+    <nav class='nav_bar'>
+        <a href="/logout" class="btn">ログアウトする</a>
+    </nav>
 
     
-    <p>ログイン名は{{name}}です</p>    
     <a class="btn btn-info btn-lg m-5" href="/create" role='button' style="color: black;">CREATE NEW TASK</a>
 
     
@@ -20,7 +24,6 @@
             <a class="btn btn-secondary btn-sm" href="detail/{{ post.id }}" role='button'>Detail</a>
             <a class="btn btn-success btn-sm" href="update/{{ post.id }}" role='button'>Update</a>
             <a class="btn btn-danger btn-sm" href="delete/{{ post.id }}" role='button'>delete</a>
-            <p>ユーザー名：{{post.user_name}}</p>
         </div>
     </div>
     {% endif %}
