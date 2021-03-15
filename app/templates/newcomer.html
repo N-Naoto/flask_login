@@ -13,10 +13,11 @@
             </form>
             <a href="/top">ログイン画面に戻る</a>
         </div>
+        {% if status == "exist_user" %}
+        <p>そのユーザは既に登録されています。</p>
+        {% endif %}
     </div>
 
-    {% if status == "exist_user" %}
-    <p>そのユーザは既に登録されています。</p>
-    {% endif %}
+    
     
 {% endblock %}

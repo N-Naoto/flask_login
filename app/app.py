@@ -44,8 +44,9 @@ def create():
 
 @app.route('/detail/<int:id>')
 def read(id):
+    name = session["user_name"]
     post = Post.query.get(id)
-    return render_template('detail.html', post=post)
+    return render_template('detail.html', post=post, today=date.today(),name=name)
 
 
 @app.route('/update/<int:id>', methods=['GET', 'POST'])
