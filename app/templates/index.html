@@ -1,39 +1,33 @@
-{% extends "base.html" %}
-{% block head%}
+{% extends 'base.html' %}
+{% block head %}
 <link rel="stylesheet" href="../static/css/index_detail.css">
 {% endblock %}
 {% block body %}
-    <nav class="nav_bar">
-        <p class="m-3">ユーザ名：{{name}} 様</p>
-        <a href="/logout" class="btn btn-dark btn_logout p-3">ログアウトする</a>
-    </nav>
-
-    <a class="btn btn-primary btn-lg m-5" href="/create" role='button' style="color: black;">CREATE NEW TASK</a>
-
-    
-    
-    {% for post in posts %}
-    {% if name == post.user_name %}
-    <div class="card w-50 mb-3" style="margin: auto;">
-        <div class="card-body">
-            {% if post.due.date() < today %} 
-            <div class="alert alert-warning" role="alert">期限切れです！</div>
-            {% endif %}
-            <h2 class="card-title">タイトル：{{post.title}}</h2>
-            <p>期限：{{post.due.date()}}</p>
-            <a class="btn btn-secondary btn-sm" href="detail/{{ post.id }}" role='button'>Detail</a>
-            <a class="btn btn-success btn-sm" href="update/{{ post.id }}" role='button'>Update</a>
-            <a class="btn btn-danger btn-sm" href="delete/{{ post.id }}" role='button'>delete</a>
-        </div>
+<nav class="nav_bar">
+    <p class="m-3">ユーザ名：{{name}} 様</p>
+    <a href="/logout" class="btn btn-dark btn_logout p-3">ログアウトする</a>
+</nav>
+<a class="btn btn-primary btn-lg m-5" href="/create" role='button'>新しいタスクを作成</a>
+{% for post in posts %}
+{% if name == post.user_name %}
+<div class="card w-50 mb-3" style="margin: auto;">
+    <div class="card-body">
+        {% if post.due.date() < today %} 
+        <div class="alert alert-warning" role="alert">期限切れです！</div>
+        {% endif %}
+        <h2 class="card-title">タイトル：{{post.title}}</h2>
+        <p>期限：{{post.due.date()}}</p>
+        <a class="btn btn-secondary btn-sm" href="detail/{{ post.id }}" role='button'>Detail</a>
+        <a class="btn btn-success btn-sm" href="update/{{ post.id }}" role='button'>Update</a>
+        <a class="btn btn-danger btn-sm" href="delete/{{ post.id }}" role='button'>delete</a>
     </div>
-    {% endif %}
-    {% endfor %}
-
-
-    <p class="text-center">~~~登録されてるユーザー名~~~</p>
-    {% for user in all_user %}
-    <div class="text-center">
-        {{user.user_name}} 様
-    </div>
-    {% endfor %}
+</div>
+{% endif %}
+{% endfor %}
+<p class="text-center">~~~登録されてるユーザー名~~~</p>
+{% for user in all_user %}
+<div class="text-center">
+    {{user.user_name}} 様
+</div>
+{% endfor %}
 {% endblock %}

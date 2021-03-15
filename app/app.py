@@ -74,24 +74,19 @@ def delete(id):
     return redirect('/index')
 
 
-
-# 初期画面
 @app.route("/top")
 def top():
     status = request.args.get("status")
     title_name = 'top'
     return render_template("top.html", status=status,title_name=title_name)
 
-# ログインボタンを押したら発火
 @app.route("/login", methods=["post"])
 def login():
     user_name = request.form["user_name"]
     user = User.query.filter_by(user_name=user_name).first()
-    # ユーザがいるなら
     if user:
         password = request.form["password"]
         hashed_password = sha256((user_name + password + key.SALT).encode("utf-8")).hexdigest()
-        # パスワードが一致したら
         if user.hashed_password == hashed_password:
             session["user_name"] = user_name
             return redirect(url_for("index"))
@@ -100,14 +95,12 @@ def login():
     else:
         return redirect(url_for("top", status="user_notfound"))
 
-# 新規登録画面に移動するとき発火
 @app.route("/newcomer")
 def newcomer():
     status = request.args.get("status")
     title_name = 'newcomer'
     return render_template("newcomer.html", status=status, title_name=title_name)
 
-# 新規登録ボタンを押したら発火
 @app.route("/registar", methods=["post"])
 def registar():
     user_name = request.form["user_name"]
@@ -123,7 +116,6 @@ def registar():
         session["user_name"] = user_name
         return redirect(url_for("index"))
 
-# ログアウトボタンを押したら発火
 @app.route("/logout")
 def logout():
     session.pop("user_name", None)
