@@ -4,8 +4,20 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 import os
 
-databese_file = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'todo.db') 
-engine = create_engine('sqlite:///' + databese_file, convert_unicode=True)
+# sqlite3バージョン
+# databese_file = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'todo.db') 
+# engine = create_engine('sqlite:///' + databese_file, convert_unicode=True)
+# db_session = scoped_session(sessionmaker(autocommit=False, autoflush=False, bind=engine))
+# Base = declarative_base()
+# Base.query = db_session.query_property()
+
+# mysqlバージョン
+database_file = 'mysql+pymysql://{user}:{password}@{host}/todo?charset=utf8'.format(**{
+    'user': os.getenv('DB_USER', 'user1'),
+    'password': os.getenv('DB_PASSWORD', 'user1'),
+    'host': os.getenv('DB_HOST', 'localhost'),
+})
+engine = create_engine(database_file, encoding="utf-8", echo=True)
 db_session = scoped_session(sessionmaker(autocommit=False, autoflush=False, bind=engine))
 Base = declarative_base()
 Base.query = db_session.query_property()

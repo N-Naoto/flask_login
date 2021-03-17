@@ -1,5 +1,5 @@
 # テーブルの絡む情報を定義するためのクラスを作成
-from sqlalchemy import Column, Integer, String, Text, DateTime,ForeignKey
+from sqlalchemy import Column, Integer, String, Text, DateTime
 from models.database import Base
 from datetime import datetime
 
