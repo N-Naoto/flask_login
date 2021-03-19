@@ -1,10 +1,11 @@
 from flask import Flask, render_template, request, session, redirect, url_for
 from models.models import Post, User
-from models.database import db_session
+from models.database import db_session,Base
 from datetime import datetime
 from app import key
 from hashlib import sha256
 from datetime import datetime,date
+from flask_migrate import Migrate
 
 app = Flask(__name__)
 app.secret_key = key.SECRET_KEY
