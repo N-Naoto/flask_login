@@ -5,7 +5,10 @@
 - [x] ユーザごとにTodoを作れるようにする
 - [x] sqliteからmysqlに変更 
 - [ ] デプロイする
-    - [ ] runtime.txtの編集  
+    - [ ] マイグレーション (flask db init  とか dbコマンドがないって怒られる )
+    - [ ] heroku configの設定
+    - [ ] heroku logs のエラー文
+
 - [x] デザインの調整
 
 - [ ] 勉強時間管理アプリの参考を見る
