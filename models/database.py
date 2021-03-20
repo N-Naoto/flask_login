@@ -14,10 +14,10 @@ import os
 # mysqlバージョン
 # database_file = os.getenv('CLEARDB_DATABASE_URL')
 database_file = 'mysql+pymysql://{user}:{password}@{host}/{db}?charset=utf8'.format(**{
-    'user': os.getenv('DB_USERNAME', b8e9ff724a7a6b),
-    'password': os.getenv('DB_PASSWORD', 886f95f0),
-    'host': os.getenv('DB_HOST', us-cdbr-east-03.cleardb.com),
-    'db': os.getenv('DB_DATABASE', heroku_9e15f4d597e722d)
+    'user': os.getenv('DB_USERNAME', 'b8e9ff724a7a6b'),
+    'password': os.getenv('DB_PASSWORD', '886f95f0'),
+    'host': os.getenv('DB_HOST', 'us-cdbr-east-03.cleardb.com'),
+    'db': os.getenv('DB_DATABASE', 'heroku_9e15f4d597e722d')
 })
 # database_file = 'mysql+pymysql://{user}:{password}@{host}/todo?charset=utf8'.format(**{
 #     'user': os.getenv('DB_USER','user1'),
