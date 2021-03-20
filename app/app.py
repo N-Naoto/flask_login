@@ -5,7 +5,7 @@ from datetime import datetime
 from app import key
 from hashlib import sha256
 from datetime import datetime,date
-from flask_migrate import Migrate
+from sqlalchemy.exc import SQLAlchemyError
 
 app = Flask(__name__)
 app.secret_key = key.SECRET_KEY
@@ -25,18 +25,20 @@ def index():
         else:
             return redirect(url_for("top", status="logout"))
     else:
-        title = request.form.get('title')
-        detail = request.form.get('detail')
-        due = request.form.get('due')
-        due = datetime.strptime(due, '%Y-%m-%d')
-        user_name = session['user_name']
-        
-        new_post = Post(title=title, detail=detail, due=due, user_name=user_name)
-        db_session.add(new_post)
-        db_session.commit()
-        db_session.close()
-
-        return redirect('/index')
+        try: 
+            title = request.form.get('title')
+            detail = request.form.get('detail')
+            due = request.form.get('due')
+            due = datetime.strptime(due, '%Y-%m-%d')
+            user_name = session['user_name']
+            new_post = Post(title=title, detail=detail, due=due, user_name=user_name)
+            db_session.add(new_post)
+            db_session.commit()
+            return redirect('/index')
+        except SQLAlchemyError:
+            db_session.rollback()
+        finally:
+            db_session.close()
 
 
 @app.route('/create')
