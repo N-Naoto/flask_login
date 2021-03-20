@@ -59,27 +59,31 @@ def update(id):
     if request.method == 'GET':
         return render_template('update.html', post=post)
     else:
-        post.title = request.form.get('title')
-        post.detail = request.form.get('detail')
-        post.due = datetime.strptime(request.form.get('due'), '%Y-%m-%d')
-
-        db_session.commit()
-        db_session.close()
-
-        return redirect('/')
+        try:
+            post.title = request.form.get('title')
+            post.detail = request.form.get('detail')
+            post.due = datetime.strptime(request.form.get('due'), '%Y-%m-%d')
+            db_session.commit()
+            return redirect('/')
+        except SQLAlchemyError:
+            db_session.rollback()
+        finally:
+            db_session.close()
 
     return render_template('detail.html', post=post)
 
 
 @app.route('/delete/<int:id>')
 def delete(id):
-    post = Post.query.get(id)
-
-    db_session.delete(post)
-    db_session.commit()
-    db_session.close()
-
-    return redirect('/index')
+    try:
+        post = Post.query.get(id)
+        db_session.delete(post)
+        db_session.commit()
+        return redirect('/index')
+    except SQLAlchemyError:
+        db_session.rollback()
+    finally:
+        db_session.close()
 
 
 @app.route("/top")
@@ -116,15 +120,19 @@ def registar():
     if user:
         return redirect(url_for("newcomer", status="exist_user"))
     else:
-        password = request.form["password"]
-        hashed_password = sha256((user_name + password + key.SALT).encode("utf-8")).hexdigest()
-        user = User(user_name, hashed_password)
-        db_session.add(user)
-        db_session.commit()
-        db_session.close()
-        session["user_name"] = user_name
-        return redirect(url_for("index"))
-
+        try:
+            password = request.form["password"]
+            hashed_password = sha256((user_name + password + key.SALT).encode("utf-8")).hexdigest()
+            user = User(user_name, hashed_password)
+            db_session.add(user)
+            db_session.commit()
+            session["user_name"] = user_name
+            return redirect(url_for("index"))
+        except SQLAlchemyError:
+            db_session.rollback()
+        finally:
+            db_session.close()
+            
 @app.route("/logout")
 def logout():
     session.pop("user_name", None)
