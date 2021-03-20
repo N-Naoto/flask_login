@@ -34,6 +34,7 @@ def index():
         new_post = Post(title=title, detail=detail, due=due, user_name=user_name)
         db_session.add(new_post)
         db_session.commit()
+        db_session.close()
 
         return redirect('/index')
 
@@ -61,6 +62,8 @@ def update(id):
         post.due = datetime.strptime(request.form.get('due'), '%Y-%m-%d')
 
         db_session.commit()
+        db_session.close()
+
         return redirect('/')
 
     return render_template('detail.html', post=post)
@@ -72,6 +75,8 @@ def delete(id):
 
     db_session.delete(post)
     db_session.commit()
+    db_session.close()
+
     return redirect('/index')
 
 
@@ -114,6 +119,7 @@ def registar():
         user = User(user_name, hashed_password)
         db_session.add(user)
         db_session.commit()
+        db_session.close()
         session["user_name"] = user_name
         return redirect(url_for("index"))
 
