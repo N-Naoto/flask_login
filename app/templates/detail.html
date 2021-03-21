@@ -7,8 +7,7 @@
     <p class="m-3">ユーザ名：{{name}} 様</p>
     <a href="/logout" class="btn btn-dark btn_logout p-3">ログアウトする</a>
 </nav>
-<h2 class='m-5'>詳細</h2>
-<div class="card mb-3 col-11 col-sm-6" style="margin: auto;">
+<div class="card mb-3 col-11 col-sm-6 center" style="margin: auto;">
     <div class="card-body">
         {% if post.due.date() < today %}
         <div class="alert alert-warning" role="alert">期限切れです！</div>
