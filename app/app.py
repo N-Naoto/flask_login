@@ -132,11 +132,20 @@ def registar():
             db_session.rollback()
         finally:
             db_session.close()
-            
+
 @app.route("/logout")
 def logout():
     session.pop("user_name", None)
     return redirect(url_for("top", status="logout"))
+
+
+@app.teardown_appcontext
+def session_clear(exception):
+    if exception and db_session.is_active:
+        db_session.rollback()
+    else:
+        db_session.commit()
+    session.close()
 
 
 if __name__ == "__main__":
