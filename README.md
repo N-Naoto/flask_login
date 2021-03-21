@@ -8,6 +8,8 @@
     - [ ] マイグレーション (flask db init  とか dbコマンドがないって怒られる )
     - [ ] heroku configの設定
     - [ ] heroku logs のエラー文
+# ログイン方法
+mysql -u b8e9ff724a7a6b -h us-cdbr-east-03.cleardb.com  -p
 
 - [x] デザインの調整
 
