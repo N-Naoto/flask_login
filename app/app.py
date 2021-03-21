@@ -25,20 +25,16 @@ def index():
         else:
             return redirect(url_for("top", status="logout"))
     else:
-        try: 
-            title = request.form.get('title')
-            detail = request.form.get('detail')
-            due = request.form.get('due')
-            due = datetime.strptime(due, '%Y-%m-%d')
-            user_name = session['user_name']
-            new_post = Post(title=title, detail=detail, due=due, user_name=user_name)
-            db_session.add(new_post)
-            db_session.commit()
-            return redirect('/index')
-        except SQLAlchemyError:
-            db_session.rollback()
-        finally:
-            db_session.close()
+        title = request.form.get('title')
+        detail = request.form.get('detail')
+        due = request.form.get('due')
+        due = datetime.strptime(due, '%Y-%m-%d')
+        user_name = session['user_name']
+        new_post = Post(title=title, detail=detail, due=due, user_name=user_name)
+        db_session.add(new_post)
+        db_session.commit()
+        db_session.close()
+        return redirect('/index')
 
 
 @app.route('/create')
@@ -59,31 +55,23 @@ def update(id):
     if request.method == 'GET':
         return render_template('update.html', post=post)
     else:
-        try:
-            post.title = request.form.get('title')
-            post.detail = request.form.get('detail')
-            post.due = datetime.strptime(request.form.get('due'), '%Y-%m-%d')
-            db_session.commit()
-            return redirect('/')
-        except SQLAlchemyError:
-            db_session.rollback()
-        finally:
-            db_session.close()
+        post.title = request.form.get('title')
+        post.detail = request.form.get('detail')
+        post.due = datetime.strptime(request.form.get('due'), '%Y-%m-%d')
+        db_session.commit()
+        db_session.close()
+        return redirect('/')
 
     return render_template('detail.html', post=post)
 
 
 @app.route('/delete/<int:id>')
 def delete(id):
-    try:
-        post = Post.query.get(id)
-        db_session.delete(post)
-        db_session.commit()
-        return redirect('/index')
-    except SQLAlchemyError:
-        db_session.rollback()
-    finally:
-        db_session.close()
+    post = Post.query.get(id)
+    db_session.delete(post)
+    db_session.commit()
+    db_session.close()
+    return redirect('/index')
 
 
 @app.route("/top")
@@ -120,18 +108,14 @@ def registar():
     if user:
         return redirect(url_for("newcomer", status="exist_user"))
     else:
-        try:
-            password = request.form["password"]
-            hashed_password = sha256((user_name + password + key.SALT).encode("utf-8")).hexdigest()
-            user = User(user_name, hashed_password)
-            db_session.add(user)
-            db_session.commit()
-            session["user_name"] = user_name
-            return redirect(url_for("index"))
-        except SQLAlchemyError:
-            db_session.rollback()
-        finally:
-            db_session.close()
+        password = request.form["password"]
+        hashed_password = sha256((user_name + password + key.SALT).encode("utf-8")).hexdigest()
+        user = User(user_name, hashed_password)
+        db_session.add(user)
+        db_session.commit()
+        db_session.close()
+        session["user_name"] = user_name
+        return redirect(url_for("index"))
 
 @app.route("/logout")
 def logout():
