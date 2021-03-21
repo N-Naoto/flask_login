@@ -119,7 +119,7 @@ def registar():
 
 @app.route("/logout")
 def logout():
-    session.pop("user_name", None)
+    db_session.pop("user_name", None)
     return redirect(url_for("top", status="logout"))
 
 
@@ -129,7 +129,7 @@ def session_clear(exception):
         db_session.rollback()
     else:
         db_session.commit()
-    session.close()
+    db_session.close()
 
 
 if __name__ == "__main__":
