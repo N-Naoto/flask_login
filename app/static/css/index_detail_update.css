@@ -1,0 +1,11 @@
+.nav_bar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.center {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

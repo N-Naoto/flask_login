@@ -1,20 +1,23 @@
 {% extends 'base.html' %}
+{% block head %}
+<link rel="stylesheet" href="../static/css/index_detail_update.css">
+{% endblock %}
 {% block body %}
-<form class='m-5' action="/update/{{post.id}}" method='POST'>
+<form class='col-11 col-sm-6 center' action="/update/{{post.id}}" method='POST'>
     <div class="pb-3">
-        <label for="title" class="form-label">Title</label>
+        <label for="title" class="form-label">タイトル</label>
         <input type="text" class="form-control" name='title' value='{{post.title}}'>
     </div>
     <div class="pd-3">
-        <label class="form-label" for="detail">Detail</label>
+        <label class="form-label" for="detail">詳細</label>
         <input type="text" class="form-control" name='detail' value='{{post.detail}}'>
     </div>
     <div class="form-group mb-3">
-        <label for="due">Due</label>
+        <label for="due">期限</label>
         <input type="date" class="form-control" name='due' value='{{post.due.date()}}' required>
     </div>
-    <a href="/index" class="btn btn-outline-primary" role='button'>Return</a>
-    <button type="submit" class="btn btn-primary">Change</button>
+    <a href="/index" class="btn btn-outline-primary" role='button'>戻る</a>
+    <button type="submit" class="btn btn-primary">変更する</button>
 </form>
 
 {% endblock %}

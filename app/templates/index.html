@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block head %}
-<link rel="stylesheet" href="../static/css/index_detail.css">
+<link rel="stylesheet" href="../static/css/index_detail_update.css">
 {% endblock %}
 {% block body %}
 <nav class="nav_bar">
@@ -10,16 +10,16 @@
 <a class="btn btn-primary btn-lg m-5" href="/create" role='button'>新しいタスクを作成</a>
 {% for post in posts %}
 {% if name == post.user_name %}
-<div class="card w-50 mb-3" style="margin: auto;">
+<div class="card mb-3 col-11 col-sm-6" style="margin: auto;">
     <div class="card-body">
         {% if post.due.date() < today %} 
         <div class="alert alert-warning" role="alert">期限切れです！</div>
         {% endif %}
-        <h2 class="card-title">タイトル：{{post.title}}</h2>
-        <p>期限：{{post.due.date()}}</p>
-        <a class="btn btn-secondary btn-sm" href="detail/{{ post.id }}" role='button'>Detail</a>
-        <a class="btn btn-success btn-sm" href="update/{{ post.id }}" role='button'>Update</a>
-        <a class="btn btn-danger btn-sm" href="delete/{{ post.id }}" role='button'>delete</a>
+        <h2 class="card-title">{{post.title}}</h2>
+        <p>{{post.due.date()}} まで</p>
+        <a class="btn btn-secondary btn-sm" href="detail/{{ post.id }}" role='button'>詳細</a>
+        <a class="btn btn-success btn-sm" href="update/{{ post.id }}" role='button'>更新</a>
+        <a class="btn btn-danger btn-sm" href="delete/{{ post.id }}" role='button'>削除</a>
     </div>
 </div>
 {% endif %}

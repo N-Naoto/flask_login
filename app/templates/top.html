@@ -4,7 +4,7 @@
 {% endblock %}
 {% block body %}
     <div class="background"></div>
-    <div class="card center" style="width: 500px;">
+    <div class="card center col-11 col-sm-6">
         <div class="card-body">
             <h1 class="card-title">ログイン</h1>
             <form action="/login" method="post">
@@ -14,7 +14,7 @@
                 <input type="password" class='form-control' name="password" placeholder="password">
                 <input type="submit" class='btn btn-primary' value="ログイン">
             </form>
-            <a href="/newcomer" style="margin: 0 auto;">新規登録はこちら</a>
+            <a href="/newcomer">新規登録はこちら</a>
         </div>
         {% if status == "user_notfound" %}
         <p>ユーザが見つかりません。新規登録しましょう。</p>

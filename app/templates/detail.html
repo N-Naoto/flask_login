@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block head %}
-<link rel="stylesheet" href="../static/css/index_detail.css">
+<link rel="stylesheet" href="../static/css/index_detail_update.css">
 {% endblock %}
 {% block body %}
 <nav class="nav_bar">
@@ -8,16 +8,16 @@
     <a href="/logout" class="btn btn-dark btn_logout p-3">ログアウトする</a>
 </nav>
 <h2 class='m-5'>詳細</h2>
-<div class="card w-50 mb-3" style="margin: auto;">
+<div class="card mb-3 col-11 col-sm-6" style="margin: auto;">
     <div class="card-body">
         {% if post.due.date() < today %}
         <div class="alert alert-warning" role="alert">期限切れです！</div>
         {% endif %}
         <h2 class="card-title">{{post.title}}</h2>
-        <p>期限：{{post.due.date()}}</p>
-        <p>詳細：{{post.detail}}</p>
-        <a href="/" class="btn btn-outline-success" role='button'>Return</a>
-        <a class="btn btn-success" href="/update/{{ post.id }}" role='button'>Update</a>
+        <p>{{post.detail}}</p>
+        <p>{{post.due.date()}} まで</p>
+        <a href="/" class="btn btn-outline-success" role='button'>戻る</a>
+        <a class="btn btn-success" href="/update/{{ post.id }}" role='button'>更新</a>
     </div>
 </div>
 {% endblock %}
