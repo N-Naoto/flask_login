@@ -25,7 +25,7 @@ database_file = 'mysql+pymysql://{user}:{password}@{host}/{db}?charset=utf8'.for
 #     'host': os.getenv('DB_HOST','localhost'),
 # })
 
-engine = create_engine(database_file, encoding="utf-8", echo=True, pool_recycle=60)
+engine = create_engine(database_file, encoding="utf-8", echo=True)
 db_session = scoped_session(sessionmaker(autocommit=False, autoflush=False, bind=engine))
 Base = declarative_base()
 Base.query = db_session.query_property()
